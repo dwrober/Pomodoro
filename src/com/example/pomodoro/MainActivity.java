@@ -1,5 +1,7 @@
 package com.example.pomodoro;
 
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.os.Build;
 
 public class MainActivity extends Activity {
@@ -22,27 +25,42 @@ public class MainActivity extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-	}
+	
+	
+	
+	}// end of oncreate
+	
+	/// my menu code
+		@SuppressLint("NewApi")
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+			getMenuInflater().inflate(R.menu.main, menu);
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
-	}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) 
+			{
+			switch (item.getItemId()) 
+				{
+
+				case R.id.add_task:
+					addTask();
+					return true;
+
+				default:
+					return true;
+				}
+
+			}	
+
+		public void addTask()
+		{
+			Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
+		}
+		
+		
 
 	/**
 	 * A placeholder fragment containing a simple view.
