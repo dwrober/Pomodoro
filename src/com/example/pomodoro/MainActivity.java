@@ -48,6 +48,10 @@ public class MainActivity extends Activity {
 				case R.id.add_task:
 					addTask();
 					return true;
+					
+				case R.id.check_list:
+					checkList();
+					return true;	
 
 				default:
 					return true;
@@ -58,6 +62,11 @@ public class MainActivity extends Activity {
 		public void addTask()
 		{
 			Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
+		}
+		
+		public void checkList()
+		{
+			Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
 		}
 		
 		
