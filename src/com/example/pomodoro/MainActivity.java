@@ -99,16 +99,19 @@ public class MainActivity extends Activity {
 				public void onClick(View v) 
 					{
 					EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
-					//Toast.makeText(MainActivity.this, "need to add task here", Toast.LENGTH_SHORT).show();
-					String newTask= addTaskText.getText().toString();
+					String newTask= addTaskText.getText().toString();					
 					
 					List<String> a = new ArrayList<String>();
-					for (int i=0;i>task_list.length;i++)
+					for (int i=0;i<task_list.length;i++)
 						{
+						Log.i(TAG,"task_list.add="+task_list[i]);
 						a.add(task_list[i]);
-						}
+						}		
+					
 					a.add(newTask);
+					task_list=new String [a.size()];
 					a.toArray(task_list);
+				
 					showList();
 					
 					}
