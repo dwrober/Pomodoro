@@ -67,6 +67,7 @@ public class MainActivity extends Activity {
 		public void checkList()
 		{
 			Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
+			//setContentView(R.layout.activity_main);
 		}
 		
 		

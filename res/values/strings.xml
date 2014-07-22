@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Pomodoro</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="add_task">+ADD TASK</string>
     <string name="action_settings">Settings</string>
     <string name="AddTask">+Add task</string>
     <string name="checkList">=Check List</string>
