@@ -1,5 +1,9 @@
 package com.example.pomodoro;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActionBar;
@@ -14,10 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.os.Build;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	public static final String TAG = "Pomodoro";
@@ -72,13 +78,49 @@ public class MainActivity extends Activity {
 				}
 
 			}	
+		
+		
+		
+		
+		
 
 		public void addTask()
 			{
 			// needs to call add_task and store new item to task_list string array
 			Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.add_task);
-			}
+			
+			// find "add" button and attach listener
+			// if overlay need to add->  B1.bringToFront();
+			Button B1=(Button) findViewById(R.id.add_task_button); 
+			
+			B1.setOnClickListener(new View.OnClickListener() 
+				{
+				public void onClick(View v) 
+					{
+					EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
+					//Toast.makeText(MainActivity.this, "need to add task here", Toast.LENGTH_SHORT).show();
+					String newTask= addTaskText.getText().toString();
+					
+					List<String> a = new ArrayList<String>();
+					for (int i=0;i>task_list.length;i++)
+						{
+						a.add(task_list[i]);
+						}
+					a.add(newTask);
+					a.toArray(task_list);
+					showList();
+					
+					}
+				});
+			
+			
+			} // end of add task
+		
+		
+		
+		
+		
 		
 		
 		public void showList()
@@ -112,7 +154,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onActivityCreated(Bundle b) {
 				super.onActivityCreated(b);
-/// loads current task list here	    
+/// add loads current task list here	    
 				//values = new String[] { "Cat", "Mars", "Snow" };
 	       	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 	       	        android.R.layout.simple_list_item_1, task_list);
@@ -125,16 +167,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onListItemClick(ListView l, View v, int position, long id) {
 			    Log.i(TAG,values[position] + " was clicked\n" + v);
-			    ImageView image=null;
 							
 				switch (position) 
 				{
 
 				case 0:
 					Toast.makeText(getActivity(), "option 0 = static add item", Toast.LENGTH_SHORT).show();				
-					getActivity().setContentView(R.layout.add_task);
+					//getActivity().setContentView(R.layout.add_task);
 
 					// needs code to add new task and store to array
+					/// !!!!! not functional !!!!!!
+					((MainActivity) getActivity()).addTask();
 					
 					return;
 					
