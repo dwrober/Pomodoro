@@ -14,7 +14,7 @@
         android:title="@string/AddTask" android:enabled="true"/>
 
     <item
-        android:id="@+id/check_list"
+        android:id="@+id/show_list"
         android:icon="@drawable/check_list_png"
         android:orderInCategory="1"
         android:showAsAction="always"

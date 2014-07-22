@@ -15,9 +15,14 @@ import android.widget.Toast;
 import android.os.Build;
 
 public class MainActivity extends Activity {
+	public static final String TAG = "Pomodoro";
+	public String[] task_list = new String[] { "Click to add a Task"}; // implied first element
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -49,8 +54,8 @@ public class MainActivity extends Activity {
 					addTask();
 					return true;
 					
-				case R.id.check_list:
-					checkList();
+				case R.id.show_list:
+					showList();
 					return true;	
 
 				default:
@@ -64,9 +69,10 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
 		}
 		
-		public void checkList()
+		public void showList()
 		{
 			Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
+			
 			//setContentView(R.layout.activity_main);
 		}
 		
