@@ -78,13 +78,20 @@ public class MainActivity extends Activity {
 					
 				case R.id.save_list:
 					saveList();
-					return true;	
+					Toast.makeText(this, "List Saved", Toast.LENGTH_SHORT).show();
+					return true;
+					
+				case R.id.load_list:
+					loadList();
+					return true;
 
 				default:
 					return true;
 				}
 
 			}	
+		
+		
 		
 /// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///		
 		public void saveList()
@@ -100,19 +107,41 @@ public class MainActivity extends Activity {
 			{
 	    	editor.putString("location"+i, i+1+") " +task_list[i]);
 	    	}	
-	    
-	    
-	    
+	    	    
 	    // Apply the edits!
 	    editor.apply();
-
-	    // Get from the SharedPreferences
+	
+		}
+/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///	
+		
+		
+		
+		
+		
+/// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///	
+		public void loadList()
+		{
+			Log.i(TAG,"loadList --> "+ task_list.length +" elements.");
+		    
+			String PREFS_NAME="TASK LIST";
+		    SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+		    SharedPreferences.Editor editor = settings.edit();
+		    
+		    String[] loaded_task_list = new String[settings.getInt("listSize", 0)];
+			
+		    for (int i=0;i<settings.getInt("listSize", 0);i++)
+				{
+		    	loaded_task_list[i]=settings.getString("location"+i, "0");
+				}
+		    task_list=loaded_task_list;
+		    
+		showList();	
+		}
+		// Get from the SharedPreferences
 	    //SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
 	    //int homeScore = settings.getInt("homeScore", 0);
-			
-			
-		}
-/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///		
+		
+/// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///
 		
 		
 		
