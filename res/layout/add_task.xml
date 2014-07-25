@@ -12,7 +12,6 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
     android:ems="10" >
-
     <requestFocus />
 </EditText>
 
@@ -22,7 +21,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="127dp"
-    android:text="Button" />
+    android:layout_marginBottom="125dp"
+    android:text="                       + ADD TASK                       "
+    android:background="@drawable/shape" />
 
 </RelativeLayout>

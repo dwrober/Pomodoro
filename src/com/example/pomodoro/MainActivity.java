@@ -10,6 +10,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,7 +29,7 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	public static final String TAG = "Pomodoro";
-	public static String[] task_list = new String[] { "Click here to add a Task"}; // implied first element
+	public static String[] task_list = new String[] { "Click add task from above menu to add a task"}; // implied first element
 
 	
 	public static FragmentTransaction ft=null;
@@ -87,8 +89,12 @@ public class MainActivity extends Activity {
 		public void addTask()
 			{
 			// needs to call add_task and store new item to task_list string array
-			Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.add_task);
+			EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
+			addTaskText.requestFocus();
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(addTaskText, InputMethodManager.SHOW_IMPLICIT);
 			
 			// find "add" button and attach listener
 			// if overlay need to add->  B1.bringToFront();
@@ -111,7 +117,10 @@ public class MainActivity extends Activity {
 					a.add(newTask);
 					task_list=new String [a.size()];
 					a.toArray(task_list);
-				
+				    
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(addTaskText.getWindowToken(), 0);
+					
 					showList();
 					
 					}
@@ -180,7 +189,7 @@ public class MainActivity extends Activity {
 
 					// needs code to add new task and store to array
 					/// !!!!! not functional !!!!!!
-					((MainActivity) getActivity()).addTask();
+					//MainActivity.addTask();
 					
 					return;
 					
