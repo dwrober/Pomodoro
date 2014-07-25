@@ -11,6 +11,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,6 +75,10 @@ public class MainActivity extends Activity {
 				case R.id.show_list:
 					showList();
 					return true;	
+					
+				case R.id.save_list:
+					saveList();
+					return true;	
 
 				default:
 					return true;
@@ -81,7 +86,33 @@ public class MainActivity extends Activity {
 
 			}	
 		
-		
+/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///		
+		public void saveList()
+		{
+	    Log.i(TAG,"saveList --> "+ task_list.length +" elements.");
+	    String PREFS_NAME="TASK LIST";
+	    
+	    SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putInt("listSize", task_list.length);
+	    
+	    for (int i=0;i<task_list.length;i++)
+			{
+	    	editor.putString("location"+i, i+1+") " +task_list[i]);
+	    	}	
+	    
+	    
+	    
+	    // Apply the edits!
+	    editor.apply();
+
+	    // Get from the SharedPreferences
+	    //SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+	    //int homeScore = settings.getInt("homeScore", 0);
+			
+			
+		}
+/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///		
 		
 		
 		
@@ -110,7 +141,7 @@ public class MainActivity extends Activity {
 					List<String> a = new ArrayList<String>();
 					for (int i=0;i<task_list.length;i++)
 						{
-						Log.i(TAG,"task_list.add="+task_list[i]);
+						//Log.i(TAG,"task_list.add="+task_list[i]);
 						a.add(task_list[i]);
 						}		
 					
