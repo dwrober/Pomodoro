@@ -31,6 +31,7 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 	public static final String TAG = "Pomodoro";
 	public static String[] task_list = new String[] { "Click add task from above menu to add a task"}; // implied first element
+	public static String[] incomplete_task_text = new String[] {""}; // for incomplete text string from add task view
 
 	
 	public static FragmentTransaction ft=null;
@@ -41,6 +42,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
 		frag0 = new MyListFrag();
+		loadList();
         
         // Add the fragment to the 'fragment_container' FrameLayout
        ft = getFragmentManager().beginTransaction();
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
 					return true;
 
 				default:
+					Toast.makeText(this, "What did you click on?", Toast.LENGTH_SHORT).show();
 					return true;
 				}
 
@@ -105,7 +108,7 @@ public class MainActivity extends Activity {
 	    
 	    for (int i=0;i<task_list.length;i++)
 			{
-	    	editor.putString("location"+i, i+1+") " +task_list[i]);
+	    	editor.putString("location"+i, task_list[i]);
 	    	}	
 	    	    
 	    // Apply the edits!
@@ -114,9 +117,7 @@ public class MainActivity extends Activity {
 		}
 /// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///	
 		
-		
-		
-		
+	
 		
 /// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///	
 		public void loadList()
@@ -125,7 +126,7 @@ public class MainActivity extends Activity {
 		    
 			String PREFS_NAME="TASK LIST";
 		    SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-		    SharedPreferences.Editor editor = settings.edit();
+		    // ??? not needed as only reading from storage ???   SharedPreferences.Editor editor = settings.edit();
 		    
 		    String[] loaded_task_list = new String[settings.getInt("listSize", 0)];
 			
@@ -137,24 +138,37 @@ public class MainActivity extends Activity {
 		    
 		showList();	
 		}
-		// Get from the SharedPreferences
-	    //SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-	    //int homeScore = settings.getInt("homeScore", 0);
-		
 /// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///
 		
-		
-		
 
+		
+/// ~~~~~~~~~~~~~~~ update incomplete_task_text ~~~~~~~~~~~ ///
+public void updateIncomplete(String newValue)
+	{
+    String PREFS_NAME="TASK LIST";
+    SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+    SharedPreferences.Editor editor = settings.edit();
+    editor.putString("incomplete_task_text", newValue);
+    editor.apply();
+	}		
+/// ~~~~~~~~~~~~~~~ update incomplete_task_text ~~~~~~~~~~~ ///
+		
+		
+/// ~~~~~~~~~~~~~~~ ADD TASK ~~~~~~~~~~~ ///
 		public void addTask()
 			{
-			// needs to call add_task and store new item to task_list string array
-			//Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
+			//  Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.add_task);
 			EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
 			addTaskText.requestFocus();
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.showSoftInput(addTaskText, InputMethodManager.SHOW_IMPLICIT);
+			
+			// iff unfinished text from last uncommitted add, reenter it
+			if (!incomplete_task_text[0].equals(""))
+				{
+				addTaskText.setText(incomplete_task_text[0]); // if fragment stored, replace content with fragment
+				}
 			
 			// find "add" button and attach listener
 			// if overlay need to add->  B1.bringToFront();
@@ -188,13 +202,11 @@ public class MainActivity extends Activity {
 			
 			
 			} // end of add task
+/// ~~~~~~~~~~~~~~~ ADD TASK ~~~~~~~~~~~ ///		
 		
+			
 		
-		
-		
-		
-		
-		
+/// ~~~~~~~~~~~~~~~ SHOW LIST ~~~~~~~~~~~ ///		
 		public void showList()
 		    {
 			Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
@@ -207,7 +219,7 @@ public class MainActivity extends Activity {
 	        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 	        ft.commit();
 		    }
-		
+/// ~~~~~~~~~~~~~~~ SHOW LIST ~~~~~~~~~~~ ///		
 		
 		
 		
@@ -238,7 +250,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onListItemClick(ListView l, View v, int position, long id) {
-			    Log.i(TAG,values[position] + " was clicked\n" + v);
+			    Log.i(TAG, "Position " +position + " was clicked\n" + v);
 							
 				switch (position) 
 				{
@@ -253,7 +265,9 @@ public class MainActivity extends Activity {
 					
 					return;
 					
-								
+				default:
+					Toast.makeText(getActivity(), "Option "+ position+" clicked", Toast.LENGTH_SHORT).show();	
+					
 				}
 				
 				
