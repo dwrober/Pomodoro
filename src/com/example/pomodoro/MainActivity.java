@@ -3,16 +3,16 @@ package com.example.pomodoro;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,17 +22,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.os.Build;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	public static final String TAG = "Pomodoro";
-	public static String[] task_list = new String[] { "Click add task from above menu to add a task"}; // implied first element
+	public static String[] task_list = new String[] { ""}; 
 	public static String[] incomplete_task_text = new String[] {""}; // for incomplete text string from add task view
 
+	
 	
 	public static FragmentTransaction ft=null;
 	MyListFrag frag0=null;
@@ -49,6 +48,8 @@ public class MainActivity extends Activity {
            ft.add(R.id.fragment_container, frag0, "MAIN_FRAGMENT");  
            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
        ft.commit();
+       
+       
 	
 	}// end of oncreate
 	
@@ -115,8 +116,8 @@ public class MainActivity extends Activity {
 	    editor.apply();
 	
 		}
-/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///	
-		
+/// ~~~~~~~~~~~~~~~ SAVE LIST ~~~~~~~~~~~ ///
+			
 	
 		
 /// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///	
@@ -143,7 +144,7 @@ public class MainActivity extends Activity {
 
 		
 /// ~~~~~~~~~~~~~~~ update incomplete_task_text ~~~~~~~~~~~ ///
-public void updateIncomplete(String newValue)
+public void setIncomplete(String newValue)
 	{
     String PREFS_NAME="TASK LIST";
     SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
@@ -152,11 +153,26 @@ public void updateIncomplete(String newValue)
     editor.apply();
 	}		
 /// ~~~~~~~~~~~~~~~ update incomplete_task_text ~~~~~~~~~~~ ///
+
+/// ~~~~~~~~~~~~~~~ get incomplete_task_text ~~~~~~~~~~~ ///
+public String getIncomplete()
+	{
+	Log.i(TAG,"getIncomplete Called ");
+    String PREFS_NAME="TASK LIST";
+    SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+    return settings.getString("incomplete_task_text","0");
+	}
+
+/// ~~~~~~~~~~~~~~~ get incomplete_task_text ~~~~~~~~~~~ ///
 		
 		
 /// ~~~~~~~~~~~~~~~ ADD TASK ~~~~~~~~~~~ ///
 		public void addTask()
 			{
+			// for testing
+			//setIncomplete("");
+			
+			
 			//  Toast.makeText(this, "Add new task", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.add_task);
 			EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
@@ -164,10 +180,35 @@ public void updateIncomplete(String newValue)
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.showSoftInput(addTaskText, InputMethodManager.SHOW_IMPLICIT);
 			
-			// iff unfinished text from last uncommitted add, reenter it
+			incomplete_task_text[0]=getIncomplete();
+			
+// autosave feature in edit text of add_task
+		    
+		       addTaskText.addTextChangedListener(new TextWatcher() {
+
+		    	   public void afterTextChanged(Editable s) {}
+
+		    	   public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+		    	   public void onTextChanged(CharSequence s, int start, int before, int count)
+		    	   		{
+		    		    setIncomplete(s.toString());
+		    	   		}
+		    	   
+		    	  });
+		              
+		       
+// end of autosave feature			
+			
+			Log.i(TAG, "incomplete text = " +incomplete_task_text[0]);
+			// if unfinished text from last uncommitted add, re-enter it
 			if (!incomplete_task_text[0].equals(""))
 				{
 				addTaskText.setText(incomplete_task_text[0]); // if fragment stored, replace content with fragment
+				}
+			else
+				{
+				addTaskText.setText("");
 				}
 			
 			// find "add" button and attach listener
@@ -178,6 +219,7 @@ public void updateIncomplete(String newValue)
 				{
 				public void onClick(View v) 
 					{
+					setIncomplete("");
 					EditText addTaskText=(EditText)findViewById(R.id.new_task_name);
 					String newTask= addTaskText.getText().toString();					
 					
@@ -202,6 +244,8 @@ public void updateIncomplete(String newValue)
 			
 			
 			} // end of add task
+		
+		
 /// ~~~~~~~~~~~~~~~ ADD TASK ~~~~~~~~~~~ ///		
 		
 			
@@ -209,7 +253,7 @@ public void updateIncomplete(String newValue)
 /// ~~~~~~~~~~~~~~~ SHOW LIST ~~~~~~~~~~~ ///		
 		public void showList()
 		    {
-			Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.fragment_main);
 			frag0 = new MyListFrag();
 	        
