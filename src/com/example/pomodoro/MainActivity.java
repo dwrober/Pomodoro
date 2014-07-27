@@ -211,6 +211,8 @@ public String getIncomplete()
 				addTaskText.setText("");
 				}
 			
+			addTaskText.setSelection(addTaskText.getText().length());
+			
 			// find "add" button and attach listener
 			// if overlay need to add->  B1.bringToFront();
 			Button B1=(Button) findViewById(R.id.add_task_button); 
