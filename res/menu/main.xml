@@ -10,29 +10,35 @@
         android:id="@+id/add_task"
         android:icon="@drawable/add_to_list_inverted"
         android:orderInCategory="2"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/AddTask" android:enabled="true"/>
 
     <item
         android:id="@+id/show_list"
         android:icon="@drawable/list_inverted"
         android:orderInCategory="1"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/checkList" android:enabled="true"/>
     
     <item
         android:id="@+id/save_list"
         android:icon="@drawable/save_gray_labled"
-        android:orderInCategory="3"
-        android:showAsAction="always"
+        android:orderInCategory="5"
+        android:showAsAction="ifRoom"
         android:title="@string/checkList" android:enabled="true"/>
     
         <item
         android:id="@+id/load_list"
         android:icon="@drawable/load_gray_labled"
         android:orderInCategory="4"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/checkList" android:enabled="true"/>
    
+        <item
+        android:id="@+id/delete_list"
+        android:icon="@drawable/list_x"
+        android:orderInCategory="3"
+        android:showAsAction="ifRoom"
+        android:title="@string/checkList" android:enabled="true"/>
 
 </menu>
