@@ -81,12 +81,17 @@ public class MainActivity extends Activity {
 					
 				case R.id.save_list:
 					saveList();
-					Toast.makeText(this, "List Saved", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "List Saved!", Toast.LENGTH_SHORT).show();
 					return true;
 					
 				case R.id.load_list:
 					loadList();
 					return true;
+					
+				case R.id.delete_list:
+					Toast.makeText(this, "All tasks cleared!", Toast.LENGTH_SHORT).show();
+					deleteList();
+					return true;	
 
 				default:
 					Toast.makeText(this, "What did you click on?", Toast.LENGTH_SHORT).show();
@@ -140,6 +145,15 @@ public class MainActivity extends Activity {
 		showList();	
 		}
 /// ~~~~~~~~~~~~~~~ LOAD LIST ~~~~~~~~~~~ ///
+		
+/// ~~~~~~~~~~~~~~~ DELETE LIST ~~~~~~~~~~~ ///
+		public void deleteList()
+		{
+			task_list=new String[] {};
+			showList();	
+		}
+		
+/// ~~~~~~~~~~~~~~~ DELETE LIST ~~~~~~~~~~~ ///
 		
 
 		

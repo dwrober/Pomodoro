@@ -4,7 +4,11 @@
     <string name="app_name">Pomodoro</string>
     <string name="add_task">+ADD TASK</string>
     <string name="action_settings">Settings</string>
-    <string name="AddTask">+Add task</string>
-    <string name="checkList">=Check List</string>
+    <string name="AddTask">Add task</string>
+    <string name="checkList">Check List</string>
+    <string name="save">Save</string>
+    <string name="showList">Show List</string>
+    <string name="loadList">Load List</string>
+    <string name="deleteList">Delete List</string>
 
 </resources>
