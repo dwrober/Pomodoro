@@ -31,8 +31,6 @@ public class MainActivity extends Activity {
 	public static String[] task_list = new String[] { ""}; 
 	public static String[] incomplete_task_text = new String[] {""}; // for incomplete text string from add task view
 
-	
-	
 	public static FragmentTransaction ft=null;
 	MyListFrag frag0=null;
 	
@@ -44,13 +42,10 @@ public class MainActivity extends Activity {
 		loadList();
         
         // Add the fragment to the 'fragment_container' FrameLayout
-       ft = getFragmentManager().beginTransaction();
-           ft.add(R.id.fragment_container, frag0, "MAIN_FRAGMENT");  
-           ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-       ft.commit();
-       
-       
-	
+//       ft = getFragmentManager().beginTransaction();
+//           ft.add(R.id.fragment_container, frag0, "MAIN_FRAGMENT");  
+//           ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//       ft.commit();
 	}// end of oncreate
 	
 	
