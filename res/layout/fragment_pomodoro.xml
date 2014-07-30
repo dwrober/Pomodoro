@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+<!-- <EditText
+    android:id="@+id/new_task_name"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/add_task_button"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:ems="10" >
+    <requestFocus />
+</EditText>
+
+<Button
+    android:id="@+id/add_task_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="125dp"
+    android:text="                       + ADD TASK                       "
+    android:background="@drawable/shape" /> -->
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

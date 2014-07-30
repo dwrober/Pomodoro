@@ -3,9 +3,11 @@ package com.example.pomodoro;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
@@ -34,6 +36,8 @@ public class MainActivity extends Activity {
 	public static FragmentTransaction ft=null;
 	MyListFrag frag0=null;
 	
+	public PomodoroFragment pomActivity;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,9 +51,6 @@ public class MainActivity extends Activity {
 //           ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 //       ft.commit();
 	}// end of oncreate
-	
-	
-	
 	
 	/// my menu code
 		@SuppressLint("NewApi")
@@ -266,7 +267,7 @@ public String getIncomplete()
 		    {
 			//Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.fragment_main);
-			frag0 = new MyListFrag();
+			//frag0 = new MyListFrag();
 	        
 	        // Add the fragment to the 'fragment_container' FrameLayout
 	        ft = getFragmentManager().beginTransaction();
@@ -306,29 +307,20 @@ public String getIncomplete()
 			@Override
 			public void onListItemClick(ListView l, View v, int position, long id) {
 			    Log.i(TAG, "Position " +position + " was clicked\n" + v);
-							
-				switch (position) 
-				{
-
-				case 0:
-					Toast.makeText(getActivity(), "option 0 = static add item", Toast.LENGTH_SHORT).show();				
-					//getActivity().setContentView(R.layout.add_task);
-
-					// needs code to add new task and store to array
-					/// !!!!! not functional !!!!!!
-					//MainActivity.addTask();
-					
-					return;
-					
-				default:
-					Toast.makeText(getActivity(), "Option "+ position+" clicked", Toast.LENGTH_SHORT).show();	
-					
-				}
-				
-				
-				v.setBackgroundColor(0xFF44FF99); // visual queue, change to green
-				v.invalidate();
+				Toast.makeText(getActivity(), "Option "+ position+" clicked", Toast.LENGTH_SHORT).show();	
+				selectDetail();
 			}
+			
+			private void selectDetail() {
+				PomodoroFragment pomFragment = new PomodoroFragment();
+				FragmentManager fragmentManager= getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.replace(R.id.fragment_container, pomFragment);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+			}
+			
+			
 				
 			public static class MyImageFragment extends Fragment {
 
