@@ -11,12 +11,15 @@ import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class PomodoroController extends AsyncTask<String, String, String>{
 	public JSONObject data;
@@ -27,16 +30,21 @@ public class PomodoroController extends AsyncTask<String, String, String>{
 		StringEntity se = null;
 		try {
 			se = new StringEntity(data.toString());
+			Log.d("SendPostHTTP", data.toString());
+			Log.d("StringEntity", se.toString());
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        HttpClient httpclient = new DefaultHttpClient();
+		DefaultHttpClient httpclient = new DefaultHttpClient();
         HttpResponse response;
         String responseString = null;
         try {
         	HttpPost httpost = new HttpPost(uri[0]);
+        	httpost.setHeader("Accept", "application/json");
+            httpost.setHeader("Content-type", "application/json");
         	httpost.setEntity(se);
+	            
             response = httpclient.execute(new HttpPost(uri[0]));
             StatusLine statusLine = response.getStatusLine();
             if(statusLine.getStatusCode() == HttpStatus.SC_OK){

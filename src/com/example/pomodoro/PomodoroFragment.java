@@ -63,9 +63,11 @@ public class PomodoroFragment extends Fragment {
 	        	Map params = new HashMap();
 	        	Map pomo = new HashMap();
 	        	params.put("user","david");
+	        	params.put("task",taskName);
 	        	pomo.put("pomodoro", params);
 	        	
 	        	JSONObject jo = new JSONObject(pomo);
+	        	
 	        	//StringEntity se = new StringEntity(holder.toString());
 	        	
 	        	PomodoroController pc = new PomodoroController();
