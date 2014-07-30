@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class PomodoroFragment extends Fragment {
 	public String taskName = "";
-	long startTime = 0;
+	private int duration = 10000;
 	private CountDownTimer cdt;
 	
 	@Override
@@ -49,34 +49,42 @@ public class PomodoroFragment extends Fragment {
 	
 	private void stopTimer() {
 		cdt.cancel();
+		
+		TextView tv = (TextView) getActivity().findViewById(R.id.task_text);
+		TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
+		timerText.setText(getFormattedTime(duration));
 	}
 	
 	private void startTimer() {
 		//int duration = 25*60*1000;
-		int duration = 10000;
 		TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
-		cdt = new CountDownTimer(duration, 1000) {
+		cdt = new CountDownTimer(duration, 500) {
 			
 		public void onTick(long millisUntilFinished) {
-		    int seconds = (int)millisUntilFinished/1000;
-		  	int minutes = seconds / 60;
-		  	seconds = seconds % 60;
-
 	  		TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
-	  		timerText.setText(String.format("%d:%02d", minutes, seconds));
+	  		timerText.setText(getFormattedTime(millisUntilFinished));
 		}
 
             public void onFinish() {
             	TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
             	timerText.setText("done!");
+        		Button b = (Button) getActivity().findViewById(R.id.start_btn);
+        	    b.setText("start");
             }
          }.start();	
+	}
+	
+	private String getFormattedTime(long millisUntilFinished) {
+	    int seconds = (int)millisUntilFinished/1000;
+	  	int minutes = seconds / 60;
+	  	seconds = seconds % 60;
+	  	return String.format("%d:%02d", minutes, seconds);
 	}
 	
 	private void setTask() {
 		TextView tv = (TextView) getActivity().findViewById(R.id.task_text);
 		TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
 		tv.setText("Task: " + taskName);
-		timerText.setText("25:00");
+		timerText.setText(getFormattedTime(duration));
 	}
 }

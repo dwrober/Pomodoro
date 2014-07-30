@@ -22,7 +22,6 @@
 			    android:id="@+id/timer_text"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:text="25:00"
 			    android:textAppearance="?android:attr/textAppearanceLarge" />
 			
 		    <Button
