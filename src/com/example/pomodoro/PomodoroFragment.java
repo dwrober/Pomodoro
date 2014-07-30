@@ -50,6 +50,14 @@ public class PomodoroFragment extends Fragment {
 	    });
 	}
 	
+    @Override
+    public void onPause() {
+        super.onPause();
+        timerHandler.removeCallbacks(timerRunnable);
+        Button b = (Button)getActivity().findViewById(R.id.start_btn);
+        b.setText("start");
+    }
+	
 	private void setTask() {
 		TextView tv = (TextView) getActivity().findViewById(R.id.task_text);
 		TextView timerText = (TextView) getActivity().findViewById(R.id.timer_text);
@@ -59,7 +67,6 @@ public class PomodoroFragment extends Fragment {
 	
 	Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
-
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
