@@ -1,13 +1,22 @@
 package com.example.pomodoro;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.entity.StringEntity;
+import org.json.JSONObject;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.pomodoro.PomodoroController;
 
 public class PomodoroFragment extends Fragment {
 	public String taskName = "";
@@ -43,6 +52,25 @@ public class PomodoroFragment extends Fragment {
 	                startTimer();
 	                b.setText("stop");
 	            }
+	        }
+	    });
+	    
+		Button finishBtn = (Button) getActivity().findViewById(R.id.finish_btn);
+		finishBtn.setOnClickListener(new View.OnClickListener() {
+	
+	        @Override
+	        public void onClick(View v) {
+	        	Map params = new HashMap();
+	        	Map pomo = new HashMap();
+	        	params.put("user","david");
+	        	pomo.put("pomodoro", params);
+	        	
+	        	JSONObject jo = new JSONObject(pomo);
+	        	//StringEntity se = new StringEntity(holder.toString());
+	        	
+	        	PomodoroController pc = new PomodoroController();
+	        	pc.data = jo;
+	        	pc.execute("http://pacific-sands-1151.herokuapp.com/pomodoros.json");
 	        }
 	    });
 	}
