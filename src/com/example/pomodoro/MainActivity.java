@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 
@@ -307,12 +308,16 @@ public String getIncomplete()
 			@Override
 			public void onListItemClick(ListView l, View v, int position, long id) {
 			    Log.i(TAG, "Position " +position + " was clicked\n" + v);
-				Toast.makeText(getActivity(), "Option "+ position+" clicked", Toast.LENGTH_SHORT).show();	
-				selectDetail();
+			    String task = ((TextView)l.getChildAt(position)).getText().toString();
+			    Log.i("ListItemSelected: ", task);
+			    Toast.makeText(getActivity(), "Option "+ position+" clicked", Toast.LENGTH_SHORT).show();	
+				
+				selectDetail(task);
 			}
 			
-			private void selectDetail() {
+			private void selectDetail(String task) {
 				PomodoroFragment pomFragment = new PomodoroFragment();
+				pomFragment.taskName = task;
 				FragmentManager fragmentManager= getFragmentManager();
 				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 				fragmentTransaction.replace(R.id.fragment_container, pomFragment);
