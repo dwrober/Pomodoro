@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
-		frag0 = new MyListFrag();
+		//frag0 = new MyListFrag();
 		loadList();
         
         // Add the fragment to the 'fragment_container' FrameLayout
@@ -268,7 +268,7 @@ public String getIncomplete()
 		    {
 			//Toast.makeText(this, "Check List", Toast.LENGTH_SHORT).show();
 			setContentView(R.layout.fragment_main);
-			//frag0 = new MyListFrag();
+			frag0 = new MyListFrag();
 	        
 	        // Add the fragment to the 'fragment_container' FrameLayout
 	        ft = getFragmentManager().beginTransaction();
